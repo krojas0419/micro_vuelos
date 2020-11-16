@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vuelos.model.Pasajero;
@@ -20,4 +22,8 @@ public class PasajeroController {
 		return repo.findAll();
 	}
 	
+	@PostMapping("/crear")
+	public void crearPasajero(@RequestBody Pasajero pasajero) {
+		repo.save(pasajero);
+	}
 }

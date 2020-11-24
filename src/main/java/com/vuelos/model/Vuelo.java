@@ -2,13 +2,9 @@ package com.vuelos.model;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
+import javax.persistence.*;
 
 @Entity
 public class Vuelo {
@@ -16,29 +12,46 @@ public class Vuelo {
 	@Id
 	private int idVuelo;
 
-	@Column(name = "precio", nullable = false)
-	private double precio;
-
-	@Column(name = "hora_salida", nullable = false)
-	private Time hora_salida;
-
-	@Column(name = "hora_llegada", nullable = false)
-	private Time hora_llegada;
-
 	@Column(name = "fecha", nullable = false)
 	private Date fecha;
 
-	@ManyToOne
-	@JoinColumn(name = "avion")
-	private Avion avion;
+	@Column(name = "horaSalida", nullable = false)
+	private Time horaSalida;
 
-	@ManyToOne
-	@JoinColumn(name = "eropuerto_origen")
-	private Aeropuerto aeropuerto_origen;
+	@Column(name = "horaLlegada", nullable = false)
+	private Time horaLlegada;
 
-	@ManyToOne
-	@JoinColumn(name = "eropuerto_destino")
-	private Aeropuerto aeropuerto_destino;
+	@Column(name = "precio", nullable = false)
+	private double precio;
+
+	@Column(name = "origen", nullable = false)
+	private String origen;
+
+	@Column(name = "destino", nullable = false)
+	private String destino;
+
+	@ManyToMany
+	@JoinTable(name = "vuelo_pasajero", joinColumns = { @JoinColumn(name = "FK_idvuelo") }, inverseJoinColumns = {
+			@JoinColumn(name = "FK_idPasajero") })
+
+	private Set<Pasajero> pasajeros;
+
+	public Vuelo() {
+		super();
+	}
+
+	public Vuelo(int idVuelo, Date fecha, Time horaSalida, Time horaLlegada, double precio, String origen,
+			String destino, Set<Pasajero> pasajeros) {
+		super();
+		this.idVuelo = idVuelo;
+		this.fecha = fecha;
+		this.horaSalida = horaSalida;
+		this.horaLlegada = horaLlegada;
+		this.precio = precio;
+		this.origen = origen;
+		this.destino = destino;
+		this.pasajeros = pasajeros;
+	}
 
 	public int getIdVuelo() {
 		return idVuelo;
@@ -46,30 +59,6 @@ public class Vuelo {
 
 	public void setIdVuelo(int idVuelo) {
 		this.idVuelo = idVuelo;
-	}
-
-	public double getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(double precio) {
-		this.precio = precio;
-	}
-
-	public Time getHora_salida() {
-		return hora_salida;
-	}
-
-	public void setHora_salida(Time hora_salida) {
-		this.hora_salida = hora_salida;
-	}
-
-	public Time getHora_llegada() {
-		return hora_llegada;
-	}
-
-	public void setHora_llegada(Time hora_llegada) {
-		this.hora_llegada = hora_llegada;
 	}
 
 	public Date getFecha() {
@@ -80,28 +69,52 @@ public class Vuelo {
 		this.fecha = fecha;
 	}
 
-	public Avion getAvion() {
-		return avion;
+	public Time getHoraSalida() {
+		return horaSalida;
 	}
 
-	public void setAvion(Avion avion) {
-		this.avion = avion;
+	public void setHoraSalida(Time horaSalida) {
+		this.horaSalida = horaSalida;
 	}
 
-	public Aeropuerto getAeropuerto_origen() {
-		return aeropuerto_origen;
+	public Time getHoraLlegada() {
+		return horaLlegada;
 	}
 
-	public void setAeropuerto_origen(Aeropuerto aeropuerto_origen) {
-		this.aeropuerto_origen = aeropuerto_origen;
+	public void setHoraLlegada(Time horaLlegada) {
+		this.horaLlegada = horaLlegada;
 	}
 
-	public Aeropuerto getAeropuerto_destino() {
-		return aeropuerto_destino;
+	public double getPrecio() {
+		return precio;
 	}
 
-	public void setAeropuerto_destino(Aeropuerto aeropuerto_destino) {
-		this.aeropuerto_destino = aeropuerto_destino;
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
+
+	public String getOrigen() {
+		return origen;
+	}
+
+	public void setOrigen(String origen) {
+		this.origen = origen;
+	}
+
+	public String getDestino() {
+		return destino;
+	}
+
+	public void setDestino(String destino) {
+		this.destino = destino;
+	}
+
+	public Set<Pasajero> getPasajeros() {
+		return pasajeros;
+	}
+
+	public void setPasajeros(Set<Pasajero> pasajeros) {
+		this.pasajeros = pasajeros;
 	}
 
 }

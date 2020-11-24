@@ -6,6 +6,10 @@ import com.vuelos.model.Pasajero;
 
 public interface IPasajero {
 	
-	public List<Pasajero> listar();
-
+	public List<Pasajero> consultar();
+	public Object consultarPorId(Integer idPasajero);
+	public void crear(Pasajero pasajero);
+	public Pasajero actualizar(Pasajero pasajero);
+	public void eliminar(Integer idPasajero);
+	
 }

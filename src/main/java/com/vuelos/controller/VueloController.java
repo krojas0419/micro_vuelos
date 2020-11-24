@@ -7,18 +7,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vuelos.model.Vuelo;
-import com.vuelos.repo.IVueloRepo;
+import com.vuelos.service.VueloService;
 
 
 @RestController
 public class VueloController {
 
 	@Autowired
-	private IVueloRepo repo;
+	private VueloService vueloService;
 	
 	@GetMapping("/consultarVuelos")
 	public List<Vuelo> consultarTodosLosVuelos() {
-		return repo.findAll();
+		return vueloService.consultarVuelos();
 		
 	}
 }
